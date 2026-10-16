@@ -1,0 +1,48 @@
+
+<div class="container mt-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Admin Dashboard</h3>
+
+    <button class="btn btn-danger" (click)="logout()">
+      Logout
+    </button>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div class="row g-3">
+
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h5>Total Users</h5>
+          <h2>{{ totalUsers }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h5>Total Tasks</h5>
+          <h2>{{ totalTasks }}</h2>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="mt-4 d-flex gap-2">
+    <a routerLink="/tasks" class="btn btn-primary">
+      View All Tasks
+    </a>
+
+    <a routerLink="/create-task" class="btn btn-success">
+      Create Task
+    </a>
+  </div>
+
+</div>

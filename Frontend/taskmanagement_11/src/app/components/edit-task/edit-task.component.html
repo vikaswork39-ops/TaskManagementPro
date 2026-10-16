@@ -1,0 +1,156 @@
+
+<div class="edit-task-page">
+  <div class="container py-4">
+
+    <!-- Header -->
+    <div class="page-header">
+      <div>
+        <h2 class="page-title">Edit Task</h2>
+        <p class="page-subtitle">
+          Update task details and assignment
+        </p>
+      </div>
+
+      <a routerLink="/tasks" class="btn back-btn">
+        &larr; Back to Task List
+      </a>
+    </div>
+
+    <!-- Main Card -->
+    <div class="card edit-card">
+      <div class="card-body">
+
+        <div class="section-heading">
+          <h5>Task Information</h5>
+          <p>Edit the information below and save your changes.</p>
+        </div>
+
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+
+        <form [formGroup]="taskForm" (ngSubmit)="onUpdate()">
+
+          <div class="row g-3">
+
+            <!-- Title -->
+            <div class="col-12">
+              <label class="form-label">
+                Task Title <span class="required">*</span>
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                formControlName="title"
+                placeholder="Enter task title">
+
+              <small
+                class="validation-error"
+                *ngIf="taskForm.get('title')?.touched &&
+                       taskForm.get('title')?.invalid">
+                Task title is required.
+              </small>
+            </div>
+
+            <!-- Description -->
+            <div class="col-12">
+              <label class="form-label">
+                Description <span class="required">*</span>
+              </label>
+
+              <textarea
+                class="form-control"
+                rows="3"
+                formControlName="description"
+                placeholder="Enter task description">
+              </textarea>
+
+              <small
+                class="validation-error"
+                *ngIf="taskForm.get('description')?.touched &&
+                       taskForm.get('description')?.invalid">
+                Description is required.
+              </small>
+            </div>
+
+            <!-- Priority -->
+            <div class="col-md-6">
+              <label class="form-label">
+                Priority <span class="required">*</span>
+              </label>
+
+              <select class="form-select" formControlName="priority">
+                <option [ngValue]="null">Select Priority</option>
+                <option
+                  *ngFor="let priority of priorityOptions"
+                  [ngValue]="priority.id">
+                  {{ priority.name }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Status -->
+            <div class="col-md-6">
+              <label class="form-label">
+                Status <span class="required">*</span>
+              </label>
+
+              <select class="form-select" formControlName="status">
+                <option [ngValue]="null">Select Status</option>
+                <option
+                  *ngFor="let status of statusOptions"
+                  [ngValue]="status.id">
+                  {{ status.name }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Assigned User -->
+            <div class="col-12">
+              <label class="form-label">
+                Assigned User <span class="required">*</span>
+              </label>
+
+              <select
+                class="form-select"
+                formControlName="assignedUserId">
+
+                <option [ngValue]="null">Select User</option>
+
+                <option
+                  *ngFor="let user of users"
+                  [ngValue]="user.id">
+                  {{ user.name }}
+                </option>
+              </select>
+            </div>
+
+          </div>
+
+          <!-- Footer -->
+          <div class="form-footer">
+            <a routerLink="/tasks" class="btn btn-cancel">
+              Cancel
+            </a>
+
+            <button
+              type="submit"
+              class="btn btn-save"
+              [disabled]="taskForm.invalid || isLoading">
+
+              <span
+                *ngIf="isLoading"
+                class="spinner-border spinner-border-sm me-2">
+              </span>
+
+              {{ isLoading ? 'Updating...' : 'Save Changes' }}
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

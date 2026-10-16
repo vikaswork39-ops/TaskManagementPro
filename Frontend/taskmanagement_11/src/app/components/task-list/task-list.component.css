@@ -1,0 +1,214 @@
+
+/* Main Page */
+.task-page {
+  min-height: 100vh;
+  background-color: #f5f7fb;
+  font-family: Arial, sans-serif;
+}
+
+/* Page Header */
+.page-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.create-btn {
+  padding: 10px 20px;
+  border-radius: 9px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Filter Card */
+.filter-card,
+.task-card {
+  background: #ffffff;
+  border: 1px solid #e5eaf1;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+}
+
+.filter-card .card-body {
+  padding: 22px;
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 8px;
+}
+
+.form-control,
+.form-select {
+  min-height: 44px;
+  border: 1px solid #dce3ec;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+/* Task Table */
+.task-card {
+  overflow: hidden;
+}
+
+.task-table {
+  width: 100%;
+  min-width: 950px;
+  margin-bottom: 0;
+}
+
+.task-table thead th {
+  background-color: #f8fafc;
+  color: #64748b;
+  padding: 17px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.task-table tbody td {
+  padding: 18px 16px;
+  font-size: 14px;
+  color: #334155;
+  vertical-align: middle;
+  border-bottom: 1px solid #edf1f5;
+}
+
+.task-table tbody tr:hover {
+  background-color: #f8fbff;
+}
+
+/* Task Title & Description */
+.task-info {
+  min-width: 280px;
+  max-width: 380px;
+}
+
+.task-title {
+  color: #1e293b;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.task-description {
+  max-width: 350px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+/* Common Badge */
+.task-table .badge {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Dynamic Priority Badge Colors */
+.priority-high {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.priority-medium {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.priority-low {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+/* Dynamic Status Badge Colors */
+.status-pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-inprogress {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-completed {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+/* Assigned User & Date */
+.assigned-user,
+.date-cell {
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.action-buttons .btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 7px;
+}
+
+/* Pagination */
+.pagination-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 18px 20px;
+  background-color: #ffffff;
+  border-top: 1px solid #edf1f5;
+}
+
+.page-info {
+  color: #475569;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 22px;
+  }
+
+  .filter-card .card-body {
+    padding: 16px;
+  }
+
+  .task-table {
+    min-width: 900px;
+  }
+
+  .pagination-footer {
+    justify-content: center;
+    text-align: center;
+  }
+}

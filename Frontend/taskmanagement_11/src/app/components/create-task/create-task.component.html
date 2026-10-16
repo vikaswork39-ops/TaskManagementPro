@@ -1,0 +1,105 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+      <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-header bg-white border-0 p-4 pb-0">
+          <h3 class="fw-bold mb-1">Create New Task</h3>
+          <p class="text-muted">
+            Fill in the details and assign the task to a user.
+          </p>
+        </div>
+
+        <div class="card-body p-4">
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+
+          <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Task Title</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="title"
+                placeholder="Enter task title"
+              />
+
+              <small
+                class="text-danger"
+                *ngIf="
+                  taskForm.get('title')?.touched &&
+                  taskForm.get('title')?.invalid
+                "
+              >
+                Task title is required
+              </small>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Description</label>
+              <textarea
+                class="form-control"
+                rows="4"
+                formControlName="description"
+                placeholder="Enter task description"
+              >
+              </textarea>
+
+              <small
+                class="text-danger"
+                *ngIf="
+                  taskForm.get('description')?.touched &&
+                  taskForm.get('description')?.invalid
+                "
+              >
+                Description is required
+              </small>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">Priority</label>
+
+                <select class="form-select" formControlName="priority">
+                  <option [ngValue]="null">Select Priority</option>
+
+                  <option
+                    *ngFor="let priority of priorityOptions"
+                    [ngValue]="priority.id"
+                  >
+                    {{ priority.name }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">Assign User</label>
+                <select class="form-select" formControlName="assignedUserId">
+                  <option [ngValue]="null">Select User</option>
+
+                  <option *ngFor="let user of users" [ngValue]="user.id">
+                    {{ user.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-4">
+              <a routerLink="/tasks" class="btn btn-outline-secondary px-4">
+                Cancel
+              </a>
+
+              <button
+                type="submit"
+                class="btn btn-primary px-4"
+                [disabled]="taskForm.invalid || isLoading"
+              >
+                {{ isLoading ? "Creating..." : "Create Task" }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

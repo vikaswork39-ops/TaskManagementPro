@@ -1,0 +1,214 @@
+
+<div class="container-fluid task-page py-4 px-3 px-lg-4">
+
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+    <div>
+      <h3 class="page-title mb-1">Task Management</h3>
+      <p class="text-muted mb-0">Manage and monitor assigned tasks</p>
+    </div>
+
+    <a routerLink="/create-task" class="btn btn-primary create-btn">
+      + Create Task
+    </a>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div class="card filter-card mb-4">
+    <div class="card-body">
+      <div class="row g-3 align-items-end">
+
+        <!-- Search -->
+        <div class="col-lg-5">
+          <label class="form-label">Search Tasks</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search by task title..."
+            [(ngModel)]="search"
+            (keyup.enter)="applyFilters()">
+        </div>
+
+        <!-- Dynamic Status -->
+        <div class="col-lg-3 col-md-4">
+          <label class="form-label">Status</label>
+
+          <select
+            class="form-select"
+            [(ngModel)]="status"
+            (change)="applyFilters()">
+
+            <option [ngValue]="null">All Status</option>
+
+            <option
+              *ngFor="let item of statusOptions"
+              [ngValue]="item.id">
+              {{ item.name }}
+            </option>
+
+          </select>
+        </div>
+
+        <!-- Dynamic Priority -->
+        <div class="col-lg-2 col-md-4">
+          <label class="form-label">Priority</label>
+
+          <select
+            class="form-select"
+            [(ngModel)]="priority"
+            (change)="applyFilters()">
+
+            <option [ngValue]="null">All Priority</option>
+
+            <option
+              *ngFor="let item of priorityOptions"
+              [ngValue]="item.id">
+              {{ item.name }}
+            </option>
+
+          </select>
+        </div>
+
+        <div class="col-lg-2 col-md-4">
+          <button
+            class="btn btn-primary w-100"
+            (click)="applyFilters()">
+            Search
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Task Table -->
+  <div class="card task-card">
+    <div class="card-body p-0">
+
+      <div class="table-responsive">
+        <table class="table task-table align-middle mb-0">
+
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Assigned To</th>
+              <th>Created Date</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let task of tasks">
+
+              <td class="task-info">
+                <div class="task-title">
+                  {{ task.title }}
+                </div>
+
+                <div
+                  class="task-description"
+                  [title]="task.description">
+                  {{ task.description }}
+                </div>
+              </td>
+
+              <!-- Dynamic Priority Label -->
+              <td>
+                <span
+                  class="badge rounded-pill"
+                 [ngClass]="'priority-' + getPriorityName(task.priority).toLowerCase()">
+                  {{ getPriorityName(task.priority) }}
+                </span>
+              </td>
+
+              <!-- Dynamic Status Label -->
+              <td>
+                <span
+                  class="badge rounded-pill"
+                  [ngClass]="'status-' + getStatusName(task.status).toLowerCase()">
+                  {{ getStatusName(task.status) }}
+                </span>
+              </td>
+
+              <td>
+                <span class="assigned-user">
+                  {{ task.assignedUser }}
+                </span>
+              </td>
+
+              <td class="date-cell">
+                {{ task.createdDate | date:'dd MMM yyyy' }}
+              </td>
+
+              <td>
+                <div class="action-buttons">
+
+                  <a
+                    [routerLink]="['/edit-task', task.id]"
+                    class="btn btn-outline-primary btn-sm">
+                    Edit
+                  </a>
+
+                  <button
+                    class="btn btn-outline-danger btn-sm"
+                    (click)="deleteTask(task.id)">
+                    Delete
+                  </button>
+
+                </div>
+              </td>
+
+            </tr>
+
+            <tr *ngIf="!isLoading && tasks.length === 0">
+              <td colspan="6" class="text-center py-5 text-muted">
+                No tasks found
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+
+      <div *ngIf="isLoading" class="text-center py-4">
+        Loading tasks...
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination-footer">
+
+        <span class="text-muted">
+          Total Records: <strong>{{ totalCount }}</strong>
+        </span>
+
+        <div class="d-flex align-items-center gap-3">
+
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            [disabled]="pageNumber <= 1"
+            (click)="previousPage()">
+            Previous
+          </button>
+
+          <span class="page-info">
+            Page {{ pageNumber }} of {{ totalPages || 1 }}
+          </span>
+
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            [disabled]="pageNumber >= totalPages"
+            (click)="nextPage()">
+            Next
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
