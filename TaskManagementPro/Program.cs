@@ -25,11 +25,34 @@ builder.Services.AddCors(options =>
 });
 
 
-// SQL Server Database Connection
+// Database Configuration
+var databaseProvider = builder.Configuration["DatabaseProvider"]
+                       ?? "SqlServer";
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(
+{
+    if (databaseProvider.Equals(
+        "PostgreSQL",
+        StringComparison.OrdinalIgnoreCase))
+    {
+        options.UseNpgsql(
+            builder.Configuration.GetConnectionString(
+                "PostgreSQLConnection"),
+            npgsql => npgsql.MigrationsAssembly(
+                typeof(PostgreSqlDbContext).Assembly.FullName));
+    }
+    else
+    {
+        options.UseSqlServer(
+            builder.Configuration.GetConnectionString(
+                "DefaultConnection"));
+    }
+});
+
+builder.Services.AddDbContext<PostgreSqlDbContext>(options =>
+    options.UseNpgsql(
         builder.Configuration.GetConnectionString(
-            "DefaultConnection")));
+            "PostgreSQLConnection")));
 
 // Dependency Injection
 builder.Services.AddScoped<ITokenService, TokenService>();
