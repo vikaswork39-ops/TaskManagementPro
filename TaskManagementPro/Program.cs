@@ -18,7 +18,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AngularPolicy", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins(
+                "http://localhost:4200",
+                "https://vikas-task-management.netlify.app"
+              )
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
