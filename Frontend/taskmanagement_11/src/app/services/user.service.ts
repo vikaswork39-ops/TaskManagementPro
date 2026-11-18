@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  private apiUrl = 'https://localhost:7158/api/user';
+  private apiUrl = 'https://taskmanagementpro.onrender.com/api/user';
 
   constructor(private http: HttpClient) {}
 
